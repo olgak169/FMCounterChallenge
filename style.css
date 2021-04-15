@@ -1,0 +1,269 @@
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@700&display=swap");
+
+:root {
+    --red: hsl(345, 95%, 68%);
+    --blue: hsl(237, 18%, 59%);
+    --blue-dark: hsl(236, 21%, 26%);
+    --blue-darkest: hsl(235, 16%, 14%);
+    --blue-black: hsl(234, 17%, 12%);
+    --darker-blue: hsl(236, 21%, 16%);
+    --darker-red: hsl(345, 44%, 46%);
+    --fs-large: 78px;
+    --lh-large: 140px;
+    --br-large: 10px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    padding: 0;
+    height: 100vh;
+    font-family: "Red Hat Text", sans-serif;
+    font-size: 14px;
+    background: url(./images/pattern-hills.svg) no-repeat center bottom,
+        url(./images/bg-stars.svg) center center,
+        linear-gradient(to bottom, var(--blue-black), var(--blue-dark)) no-repeat center
+            center;
+    background-size: 100%;
+}
+section {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+h1 {
+    font-size: 24px;
+    text-transform: uppercase;
+    color: #fff;
+    letter-spacing: 6px;
+    margin-bottom: 6.5rem;
+}
+.counter {
+    display: flex;
+}
+.count-outer {
+    margin: 1rem;
+    text-align: center;
+}
+.count-outer p {
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 6px;
+    color: var(--blue);
+    margin-top: 1.75rem;
+}
+.dots {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    z-index: 30;
+}
+.dots::before,
+.dots::after {
+    content: "";
+    position: absolute;
+    overflow: hidden;
+    top: calc(50% - 5px);
+    width: var(--br-large);
+    height: var(--br-large);
+    border-radius: 50%;
+    background: var(--blue-black);
+}
+.dots::before {
+    left: -5px;
+}
+.dots::after {
+    right: -5px;
+}
+.count-inner {
+    width: 150px;
+    height: 140px;
+    border-radius: var(--br-large);
+    position: relative;
+    box-shadow: 0 var(--br-large) 1px var(--blue-black);
+    perspective: 1000px;
+}
+.card-front {
+    width: 100%;
+    height: 50%;
+    position: relative;
+    transform-style: preserve-3d;
+    transform-origin: bottom;
+    z-index: 3;
+}
+.card-front::before {
+    content: attr(data-num);
+    background: var(--blue-dark);
+    color: var(--red);
+    font-size: var(--fs-large);
+    line-height: 0;
+    text-align: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    overflow: hidden;
+    transform: rotateX(180deg);
+    border-radius: var(--br-large);
+}
+.card-front::after {
+    content: attr(data-current);
+    background: var(--darker-blue);
+    color: var(--darker-red);
+    font-size: var(--fs-large);
+    line-height: var(--lh-large);
+    text-align: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    overflow: hidden;
+    transform-origin: bottom;
+    transform: rotate(0deg);
+    backface-visibility: hidden;
+    border-radius: var(--br-large) var(--br-large) 0 0;
+}
+.card-back {
+    position: absolute;
+    background: var(--blue-dark);
+    color: var(--red);
+    text-align: center;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    font-size: var(--fs-large);
+    line-height: var(--lh-large);
+    border-radius: var(--br-large);
+    z-index: 0;
+}
+
+.card-lower {
+    position: absolute;
+    height: 50%;
+    width: 100%;
+    top: 50%;
+    z-index: 0;
+    border-radius: 0 0 var(--br-large) var(--br-large);
+}
+.card-lower::after {
+    position: absolute;
+    overflow: hidden;
+    background: var(--blue-dark);
+    color: var(--red);
+    content: attr(data-current);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    text-align: center;
+    font-size: var(--fs-large);
+    line-height: 0px;
+    border-radius: 0 0 var(--br-large) var(--br-large);
+}
+footer {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+footer a {
+    margin: 1rem;
+}
+footer a:hover .icon {
+    fill: var(--red);
+}
+
+.count-inner.turn .card-front {
+    animation: anim 0.6s;
+}
+.count-inner.turn .card-lower::after {
+    animation: anim2 0.5s;
+}
+.count-inner.turn .card-back {
+    animation: anim3 0.6s;
+}
+@keyframes anim {
+    0% {
+        transform: rotateX(0);
+        color: var(--red);
+    }
+    99% {
+        transform: rotateX(-180deg);
+        color: var(--darker-red);
+    }
+    100% {
+        transform: rotateX(0);
+        color: var(--red);
+    }
+}
+@keyframes anim2 {
+    from {
+        background: var(--blue-dark);
+        color: var(--red);
+    }
+    to {
+        background: var(--blue-darkest);
+        color: var(--darker-red);
+    }
+}
+@keyframes anim3 {
+    0% {
+        background: var(--blue-darkest);
+        color: var(--darker-red);
+    }
+    60% {
+        background: var(--blue-dark);
+        color: var(--red);
+    }
+    100% {
+        background: var(--darker-blue);
+        color: var(--darker-red);
+    }
+}
+@media (max-width: 740px) {
+    :root {
+        --fs-large: 36px;
+        --lh-large: 65px;
+        --br-large: 6px;
+    }
+    h1 {
+        text-align: center;
+        margin: 0 1rem 3.4rem 1rem;
+        font-size: 18px;
+    }
+    .count-outer {
+        margin: 0.3rem;
+    }
+    .count-outer p {
+        font-size: 7px;
+        letter-spacing: 3px;
+        margin-top: 1rem;
+    }
+    .dots::before,
+    .dots::after {
+        top: calc(50% - 3px);
+    }
+    .dots::before {
+        left: -3px;
+    }
+    .dots::after {
+        right: -3px;
+    }
+    .count-inner {
+        width: 60px;
+        height: 65px;
+    }
+}
