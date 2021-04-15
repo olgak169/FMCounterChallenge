@@ -115,6 +115,7 @@ h1 {
     height: 100%;
     position: absolute;
     overflow: hidden;
+    backface-visibility: hidden;
     transform: rotateX(180deg);
     border-radius: var(--br-large);
 }
